@@ -21,26 +21,26 @@ namespace ConsoleApp2
                 {
                     case "0":
                         break;
-                    case "1":   
+                    case "1":
                         projeto.Cadastrar();
                         break;
-                    
+
                     case "2":
                         projeto.Alterar();
                         break;
-                    
+
                     case "3":
                         projeto.Excluir();
                         break;
-                    
+
                     case "4":
                         projeto.ExibirNome();
                         break;
-                    
+
                     case "5":
                         projeto.ExibirLetra();
                         break;
-                    
+
                     case "6":
                         projeto.ExibirTodos();
                         break;
@@ -48,7 +48,8 @@ namespace ConsoleApp2
                     case "7":
                         projeto.ExibirID();
                         break;
-                    default: Console.WriteLine("Opção Invalida !");
+                    default:
+                        Console.WriteLine("Opção Invalida !");
                         Console.ReadLine();
                         break;
                 }
@@ -59,14 +60,14 @@ namespace ConsoleApp2
         private static string Menu()
         {
             Console.Write("[1] - Cadastrar Funcionario\n" +
-                              "[2] - Alterar Funcionario\n" +
-                              "[3] - Excluir Funcionario\n" +
-                              "[4] - Exibir Funcionario por Nome\n" +
-                              "[5] - Exibir Funcionario por Letra\n" +
-                              "[6] - Exibir Todos os Funcionarios\n" +
-                              "[7] - Exibir por ID\n" +
-                              "[0] - Sair\n" +
-                              "Opção: ");
+                          "[2] - Alterar Funcionario\n" +
+                          "[3] - Excluir Funcionario\n" +
+                          "[4] - Exibir Funcionario por Nome\n" +
+                          "[5] - Exibir Funcionario por Letra\n" +
+                          "[6] - Exibir Todos os Funcionarios\n" +
+                          "[7] - Exibir por ID\n" +
+                          "[0] - Sair\n" +
+                          "Opção: ");
 
             string opcao = Console.ReadLine();
             Console.Clear();
@@ -106,10 +107,7 @@ namespace ConsoleApp2
 
                 Funcionario auxiliar = Lista.FirstOrDefault(x => x.Id == id);
 
-                Console.WriteLine($"Nome:{auxiliar.Name}\n" +
-                                  $"Endereço:{auxiliar.Endereco}\n" +
-                                  $"Cidade:{auxiliar.Cidade}\n" +
-                                  $"Telefone:{auxiliar.Telefone}\n\n" +
+                Console.WriteLine(auxiliar.ToString() +
                                   $"Desejar alterar os dados ?[S/N]\n" +
                                   $"Opção: ");
 
@@ -167,10 +165,7 @@ namespace ConsoleApp2
 
                 Funcionario auxiliar = Lista.FirstOrDefault(x => x.Id == id);
 
-                Console.WriteLine($"Nome:{auxiliar.Name}\n" +
-                                  $"Endereço:{auxiliar.Endereco}\n" +
-                                  $"Cidade:{auxiliar.Cidade}\n" +
-                                  $"Telefone:{auxiliar.Telefone}\n\n" +
+                Console.WriteLine(auxiliar.ToString() +
                                   $"Desejar excluir os dados ?[S/N]\n" +
                                   $"Opção: ");
 
@@ -183,7 +178,7 @@ namespace ConsoleApp2
                     Console.ReadLine();
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
@@ -191,105 +186,73 @@ namespace ConsoleApp2
 
         private void ExibirLetra()
         {
-            if (Lista.Count > 0)
-            {
-                Console.Write("Buscar funcionario que tenha a letra: ");
-                string letra = Console.ReadLine();
+            if (Lista.Count == 0)
+                throw new Exception("Lista Vazia");
 
-                List<Funcionario> listaBusca = Lista.Where(x => x.Name.Contains(letra)).ToList();
-                
-                if (listaBusca.Count > 0)
-                {
-                    foreach (var lista in listaBusca)
-                        Console.WriteLine($"ID:{lista.Id}\n" +
-                                            $"Funcionario:{lista.Name}\n" +
-                                            $"Endereco:{lista.Endereco}\n" +
-                                            $"Cidade:{lista.Cidade}\n" +
-                                            $"Telefone:{lista.Telefone}\n");
-                    Console.WriteLine("Aperte qualquer tecla para sair");
-                }
-                else
-                    Console.WriteLine("Nenhum dado encontrado.\nPressione qualquer tecla para sair");
-            }
-            else
-                Console.WriteLine("Lista Vazia.\n Aperte qualquer tecla para sair.");
+            Console.Write("Buscar funcionario que tenha a letra: ");
+            string letra = Console.ReadLine();
+
+            List<Funcionario> listaBusca = Lista.Where(x => x.Name.Contains(letra)).ToList();
+
+            if (listaBusca.Count == 0)
+                throw new Exception("Nenhum dado encontrado");
+
+            foreach (var lista in listaBusca)
+                Console.WriteLine(lista.ToString());
+
+            Console.WriteLine("Aperte qualquer tecla para sair");
 
             Console.ReadLine();
         }
 
         private void ExibirNome()
         {
-            if(Lista.Count>0)
-            {
-                Console.Write("Buscar funcionario que tenha o Nome: ");
-                string Nome = Console.ReadLine();
+            if (Lista.Count == 0)
+                throw new Exception("Lista Vazia.\n");
 
-                List<Funcionario> listaBusca = Lista.Where(x => x.Name.Equals(Nome, StringComparison.OrdinalIgnoreCase)).ToList();
+            Console.Write("Buscar funcionario que tenha o Nome: ");
+            string Nome = Console.ReadLine();
 
-                if (listaBusca.Count > 0)
-                {
-                    foreach (var lista in listaBusca)
-                        Console.WriteLine($"ID:{lista.Id}\n" +
-                                            $"Funcionario:{lista.Name}\n" +
-                                            $"Endereco:{lista.Endereco}\n" +
-                                            $"Cidade:{lista.Cidade}\n" +
-                                            $"Telefone:{lista.Telefone}\n");
-                    Console.WriteLine("Aperte qualquer tecla para sair");
-                }
-                else
-                    Console.WriteLine("Nenhum dado encontrado.\nPressione qualquer tecla para sair");
+            List<Funcionario> listaBusca = Lista.Where(x => x.Name.Equals(Nome, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            }
-            else
-                Console.WriteLine("Lista Vazia.\n Aperte qualquer tecla para sair.");
+            if (listaBusca.Count == 0)
+                throw new Exception("Nenhum dado encontrado.\nPressione qualquer tecla para sair");
+
+            foreach (var lista in listaBusca)
+                Console.WriteLine(lista.ToString());
+
+            Console.WriteLine("Aperte qualquer tecla para sair");
 
             Console.ReadLine();
         }
         private void ExibirTodos()
         {
-            if(Lista.Count > 0)
-            {
-                foreach (var lista in Lista)
-                    Console.WriteLine($"ID:{lista.Id}\n" +
-                                      $"Funcionario:{lista.Name}\n" +
-                                      $"Endereco:{lista.Endereco}\n" +
-                                      $"Cidade:{lista.Cidade}\n" +
-                                      $"Telefone:{lista.Telefone}\n");
-                Console.WriteLine("Aperte qualquer tecla para sair");
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.WriteLine("Lista vazia");
-                Console.ReadLine();
-            }
-            
+            if (Lista.Count == 0)
+                throw new Exception("Lista vazia");
+
+            foreach (var lista in Lista)
+                Console.WriteLine(lista.ToString());
+
+            Console.WriteLine("Aperte qualquer tecla para sair");
+            Console.ReadLine();
         }
 
         private void ExibirID()
         {
-            if (Lista.Count > 0)
-            {
-                Console.Write("Buscar funcionario que tenha o ID: ");
-                int Id = int.Parse(Console.ReadLine());
+            if (Lista.Count == 0)
+                throw new Exception("Lista Vazia.");
 
-                Funcionario busca = Lista.FirstOrDefault(x => x.Id==Id);
+            Console.Write("Buscar funcionario que tenha o ID: ");
+            int Id = int.Parse(Console.ReadLine());
 
-                if (busca!=null)
-                {
-                    Console.WriteLine($"ID:{busca.Id}\n" +
-                                            $"Funcionario:{busca.Name}\n" +
-                                            $"Endereco:{busca.Endereco}\n" +
-                                            $"Cidade:{busca.Cidade}\n" +
-                                            $"Telefone:{busca.Telefone}\n");
-                    Console.WriteLine("Aperte qualquer tecla para sair");
-                }
-                else
-                    Console.WriteLine("Nenhum dado encontrado.\nPressione qualquer tecla para sair");
+            Funcionario busca = Lista.FirstOrDefault(x => x.Id == Id);
 
-            }
-            else
-                Console.WriteLine("Lista Vazia.\n Aperte qualquer tecla para sair.");
+            if (busca == null)
+                throw new Exception("Nenhum dado encontrado.");
+
+            Console.WriteLine(busca.ToString());
+
+            Console.WriteLine("Aperte qualquer tecla para sair");
 
             Console.ReadLine();
         }
