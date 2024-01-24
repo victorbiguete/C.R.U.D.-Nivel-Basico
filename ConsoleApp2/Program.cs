@@ -269,8 +269,6 @@ namespace ConsoleApp2
         private void ExibirNome()
         {
             bool flag;
-
-            
             do
             {
                 flag = false;
