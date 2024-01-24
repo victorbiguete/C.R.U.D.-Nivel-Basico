@@ -17,6 +17,18 @@ namespace ConsoleApp2.Entities
 
         public Funcionario(string name, string cidade, string endereco, int telefone)
         {
+            if(name == null) 
+                throw new ArgumentNullException("Nome do Funcionario não deve ser vazio");
+
+            if (cidade == null)
+                throw new ArgumentNullException("Cidade do Funcionario não deve ser vazio");
+
+            if (endereco == null)
+                throw new ArgumentNullException("Endereço do Funcionario não deve ser vazio");
+
+            if (telefone == 0)
+                throw new ArgumentNullException("Telefone do Funcionario não deve estar vazio");
+
             Name = name;
             Cidade = cidade;
             Endereco = endereco;
